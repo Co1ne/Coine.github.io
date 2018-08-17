@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/08/17/Android%E6%A8%A1%E5%9D%97%E5%8C%96%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/</loc>
+    <lastmod>2018-08-17T06:09:35.579Z</lastmod>
+    <data>
+        <display>
+        <title>Android模块化项目结构</title>
+        <pubTime>2018-08-17T06:09:14.000Z</pubTime>
+        
+        <tag>Android</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+    
+  <url>
+    <loc>http://yoursite.com/2018/08/17/hello-world/</loc>
+    <lastmod>2018-08-17T04:37:42.137Z</lastmod>
+    <data>
+        <display>
+        <title>Hello World</title>
+        <pubTime>2018-08-17T04:37:42.137Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+</urlset>
