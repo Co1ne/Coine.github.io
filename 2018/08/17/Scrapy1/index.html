@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Scrapy1"><meta name="keywords" content="scrapy"><meta name="author" content="Co1ne Yellow,undefined"><meta name="copyright" content="Co1ne Yellow"><title>Scrapy1 | Co1ne's Blog</title><link rel="shortcut icon" href="/my-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Scrapy-初步体验"><span class="toc-number">1.</span> <span class="toc-text">Scrapy 初步体验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建项目"><span class="toc-number">1.1.</span> <span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行爬虫"><span class="toc-number">1.2.</span> <span class="toc-text">运行爬虫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP请求"><span class="toc-number">1.3.</span> <span class="toc-text">HTTP请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解析响应结果"><span class="toc-number">1.4.</span> <span class="toc-text">解析响应结果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#小结"><span class="toc-number">1.4.1.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#爬取下一级页面"><span class="toc-number">1.5.</span> <span class="toc-text">爬取下一级页面</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://avatars0.githubusercontent.com/u/12226471?s=460&amp;v=4"></div><div class="author-info__name text-center">Co1ne Yellow</div><div class="author-info__description text-center">柯东的博客</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">6</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">4</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">3</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Co1ne's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">Scrapy1</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-08-17</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Python/">Python</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h2 id="Scrapy-初步体验"><a href="#Scrapy-初步体验" class="headerlink" title="Scrapy 初步体验"></a>Scrapy 初步体验</h2><h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy startproject tutorial</span><br></pre></td></tr></table></figure>
+<h3 id="运行爬虫"><a href="#运行爬虫" class="headerlink" title="运行爬虫"></a>运行爬虫</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy crawl 爬虫名</span><br></pre></td></tr></table></figure>
+<p>爬虫名为项目目录下，在<code>spiders</code>目录下创建的爬虫文件中<code>name</code>属性。</p>
+<h3 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h3><p>scrapy 使用 <code>start_requests()</code> 开始发起请求；实现此方法需要返回一个<code>scrapy.http.Request</code>列表。<br>此后，scrapy会找到此方法发出异步的请求，并在<code>parse()</code>方法中依次回调响应结果。</p>
+<blockquote>
+<p>此方法可以使用定义一个<code>start_urls</code>对象来替代。</p>
+</blockquote>
+<h3 id="解析响应结果"><a href="#解析响应结果" class="headerlink" title="解析响应结果"></a>解析响应结果</h3><p>使用<code>scrapy shell</code>可以很好的看到响应结果的结构：</p>
+<p>Linux\Unix:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy shell &apos;http://quotes.toscrape.com/page/1/&apos;</span><br></pre></td></tr></table></figure></p>
+<p>Windows:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy shell &quot;http://quotes.toscrape.com/page/1/&quot;</span><br></pre></td></tr></table></figure></p>
+<p>如果运行正常可以看到以下结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">2018-07-11 16:03:05 [scrapy.core.engine] DEBUG: Crawled (200) &lt;GET http://quotes.toscrape.com/page/1/&gt; (referer: None)</span><br><span class="line">[s] Available Scrapy objects:</span><br><span class="line">[s]   scrapy     scrapy module (contains scrapy.Request, scrapy.Selector, etc)</span><br><span class="line">[s]   crawler    &lt;scrapy.crawler.Crawler object at 0x0000022A75B2AC18&gt;</span><br><span class="line">[s]   item       &#123;&#125;</span><br><span class="line">[s]   request    &lt;GET http://quotes.toscrape.com/page/1/&gt;</span><br><span class="line">[s]   response   &lt;200 http://quotes.toscrape.com/page/1/&gt;</span><br><span class="line">[s]   settings   &lt;scrapy.settings.Settings object at 0x0000022A78291898&gt;</span><br><span class="line">[s]   spider     &lt;DefaultSpider &apos;default&apos; at 0x22a785332b0&gt;</span><br><span class="line">[s] Useful shortcuts:</span><br><span class="line">[s]   fetch(url[, redirect=True]) Fetch URL and update local objects (by default, redirects are followed)</span><br><span class="line">[s]   fetch(req)                  Fetch a scrapy.Request and update local objects</span><br><span class="line">[s]   shelp()           Shell help (print this help)</span><br><span class="line">[s]   view(response)    View response in a browser</span><br></pre></td></tr></table></figure></p>
+<p>接下来可以对响应结果进行筛选：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">In [2]: response.css(&apos;title&apos;)</span><br><span class="line">Out[2]: [&lt;Selector xpath=&apos;descendant-or-self::title&apos; data=&apos;&lt;title&gt;Quotes to Scrape&lt;/title&gt;&apos;&gt;]</span><br><span class="line"></span><br><span class="line">In [3]: response.css(&apos;title&apos;).extract()</span><br><span class="line">Out[3]: [&apos;&lt;title&gt;Quotes to Scrape&lt;/title&gt;&apos;]</span><br><span class="line"></span><br><span class="line">In [4]: response.css(&apos;title::text&apos;).extract()</span><br><span class="line">Out[4]: [&apos;Quotes to Scrape&apos;]</span><br><span class="line"></span><br><span class="line">In [5]: response.css(&apos;title::text&apos;).extract_first()</span><br><span class="line">Out[5]: &apos;Quotes to Scrape&apos;</span><br><span class="line"></span><br><span class="line">In [6]: response.css(&apos;title::text&apos;).re(r&apos;Q\w+&apos;)</span><br><span class="line">Out[6]: [&apos;Quotes&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>可以看到以上使用css选择器对<code>response</code>进行筛选，得到一些有用的数据。其中可以使用<code>extract()</code>、<code>extract_first()</code>和<code>re()</code>等方法进行筛选结果，当然，也支持<code>xpath</code>的选择方式。</p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>综上，可以归纳出几个常用的方法：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法名</th>
+<th style="text-align:center">作用</th>
+<th style="text-align:center">例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>response.url</code></td>
+<td style="text-align:center">提取响应中的url地址</td>
+<td style="text-align:center"><code>response.url.split(&quot;/&quot;)[-2]</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>response.css</code></td>
+<td style="text-align:center">使用css选择器对响应内容进行筛选</td>
+<td style="text-align:center"><code>response.css(&#39;title&#39;)</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>response.re</code></td>
+<td style="text-align:center">使用正则对响应内容进行筛选</td>
+<td style="text-align:center"><code>response.css(&#39;title::text&#39;).re(r&#39;Quotes.*&#39;)</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>resposne.xpath</code></td>
+<td style="text-align:center">使用xpath对响应内容进行筛选</td>
+<td style="text-align:center"><code>response.xpath(&#39;//title&#39;)</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>extract</code></td>
+<td style="text-align:center">提取筛选后的内容，返回列表</td>
+<td style="text-align:center"><code>response.css(&#39;title::text&#39;)[0].extract()</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>extract_first</code></td>
+<td style="text-align:center">提取筛选后的内容，返回列表中的第一个元素</td>
+<td style="text-align:center"><code>response.xpath(&#39;//title/text()&#39;).extract_first()</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>response.urljoin</code></td>
+<td style="text-align:center">连接url</td>
+<td style="text-align:center"><code>response.urljoin(next_page)</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>response.follow</code></td>
+<td style="text-align:center">直接使用相对路径拼接url，并直接返回一个<code>scrapy.Request</code>实例</td>
+<td style="text-align:center"><code>response.follow(next_page, callback=self.parse)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="爬取下一级页面"><a href="#爬取下一级页面" class="headerlink" title="爬取下一级页面"></a>爬取下一级页面</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> href <span class="keyword">in</span> response.css(<span class="string">'li.next a'</span>):</span><br><span class="line">    <span class="keyword">yield</span> response.follow(href,callback = self.parse)</span><br></pre></td></tr></table></figure>
+<p>使用<code>response.follow</code>方法，yield一个Request且再次回调<code>parse</code>方法，进行递归的爬取。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Co1ne Yellow</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://coine.github.io/2018/08/17/Scrapy1/">https://coine.github.io/2018/08/17/Scrapy1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://coine.github.io" target="_blank">Co1ne's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/scrapy/">scrapy</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2018/08/17/Scrapy2/"><i class="fa fa-chevron-left">  </i><span>Scrapy2</span></a></div><div class="next-post pull-right"><a href="/2018/08/17/Android音视频处理二/"><span>Android音视频处理二</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2018 By Co1ne Yellow</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script></body></html>
