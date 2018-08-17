@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://coine.github.io/2018/08/17/Android%E6%A8%A1%E5%9D%97%E5%8C%96%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/</loc>
+    <lastmod>2018-08-17T07:06:11.430Z</lastmod>
+    <data>
+        <display>
+        <title>Android模块化项目结构</title>
+        <pubTime>2018-08-17T06:09:14.000Z</pubTime>
+        
+        <tag>项目结构</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="https://coine.github.io/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://coine.github.io/2018/08/17/Flutter-Basic/</loc>
     <lastmod>2018-08-17T07:04:41.229Z</lastmod>
     <data>
@@ -97,26 +117,6 @@
            
              
               <breadCrumb title="Python" url="https://coine.github.io/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://coine.github.io/2018/08/17/Android%E6%A8%A1%E5%9D%97%E5%8C%96%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/</loc>
-    <lastmod>2018-08-17T06:49:36.384Z</lastmod>
-    <data>
-        <display>
-        <title>Android模块化项目结构</title>
-        <pubTime>2018-08-17T06:09:14.000Z</pubTime>
-        
-        <tag>项目结构</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="https://coine.github.io/categories/Android/"/>
           
         </display>
     </data>
