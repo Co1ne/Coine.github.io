@@ -77,24 +77,24 @@
 </table>
 <h3 id="使用AIDL的步骤"><a href="#使用AIDL的步骤" class="headerlink" title="使用AIDL的步骤"></a>使用AIDL的步骤</h3><ol>
 <li><p>创建<code>.aidl</code>文件：<br>在<code>src/main</code>下新建<code>aidl</code>文件。Android Studio将创建<code>aidl</code>文件夹，且包名与java包名一致。如下图：</p>
-<p><img src="https://i.loli.net/2018/09/13/5b99beb52fb5c.png" alt="IBookManager.aidl"></p>
+<p><img src="http://image.fullstackzh.cn/co1ne/IBookManager_aidl.png" alt="IBookManager.aidl"></p>
 </li>
 <li><p>在<code>IBookManager</code>中定义远程方法：</p>
-<p><img src="https://i.loli.net/2018/09/13/5b99bf3ddac2f.png" alt="getId"></p>
+<p><img src="http://image.fullstackzh.cn/co1ne/getId.png" alt="getId"></p>
 <p>这时，我们使用Android Studio的gradle任务<code>assembleDebug</code>（或 gradle assembleRelease）编译项目，以便您的代码能够链接到生成的类。这里生成的类为：<code>IBookManager.java</code>：</p>
-<p><img src="https://i.loli.net/2018/09/13/5b99bfe451c2e.png" alt="IBookManager.java"></p>
+<p><img src="http://image.fullstackzh.cn/co1ne/IBookManager_java.png" alt="IBookManager.java"></p>
 <p>关于这个类，比较重要的是<code>Stub</code>内部类。可以看到<code>Stub</code>类是继承自<code>Binder</code>的，用于定义服务的 RPC 接口。其中<code>asInterface</code>方法会将返回<code>IBookManager.java</code>的实例,以用来调用远程方法（可以理解为上面定义的<code>getId</code>方法）。</p>
 </li>
 <li><p>接下来我们定义一个远程的<code>Service</code>：</p>
-<p><img src="https://i.loli.net/2018/09/13/5b99c1dd07ea5.png" alt="MyRemoteService"></p>
+<p><img src="http://image.fullstackzh.cn/co1ne/MyRemoteService.png" alt="MyRemoteService"></p>
 <p>首先，这个<code>Service</code>我们在<code>AndroidManifest.xml</code>中定义<code>android:process=&quot;:remote&quot;</code>。以声明为远程的service。<br>然后在<code>onBind</code>方法中需要返回一个<code>IBinder</code>对象。于是我们由<code>IBookManager</code>的内部类<code>Stub</code>新建一个实例。可以理解为这个实例是对于<code>IBookManager</code>接口的实现。</p>
 </li>
 <li><p>最后，我们在<code>Activity</code>中绑定服务。</p>
-<p><img src="https://i.loli.net/2018/09/13/5b99c2fde68c0.png" alt="SecondActivity"></p>
+<p><img src="http://image.fullstackzh.cn/co1ne/SecondActivity.png" alt="SecondActivity"></p>
 <p><code>bindService</code>方法中的第二个参数，视为服务连接的回调。我们使用<code>IBookManager.Stub.asInterface</code>方法来返回一个<code>IBookManager</code>接口的实例。然后调用其中的<code>getId</code>方法。</p>
 </li>
 </ol>
 <p>最后来看一下运行结果：</p>
-<p><img src="https://i.loli.net/2018/09/13/5b99c417ec2dc.png" alt="result"></p>
+<p><img src="http://image.fullstackzh.cn/co1ne/result.png" alt="result"></p>
 <p>可以看到，我们在UI进程中获取到了远程进程的进程id。</p>
 </div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Co1ne Yellow</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://coine.github.io/2018/09/12/IPC之AIDL/">https://coine.github.io/2018/09/12/IPC之AIDL/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://coine.github.io" target="_blank">Co1ne's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/跨进程通信/">跨进程通信</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2018/08/17/Scrapy2/"><span>Scrapy2</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2018 By Co1ne Yellow</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script></body></html>
