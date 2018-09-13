@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="IPC之AIDL"><meta name="keywords" content="跨进程通信"><meta name="author" content="Co1ne Yellow,undefined"><meta name="copyright" content="Co1ne Yellow"><title>IPC之AIDL | Co1ne's Blog</title><link rel="shortcut icon" href="/my-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Android-跨进程通信方式及推荐使用场景"><span class="toc-number">1.</span> <span class="toc-text">Android 跨进程通信方式及推荐使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AIDL-（Android-Interface-Definition-Language）介绍"><span class="toc-number">2.</span> <span class="toc-text">AIDL （Android Interface Definition Language）介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用AIDL的步骤"><span class="toc-number">3.</span> <span class="toc-text">使用AIDL的步骤</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://avatars0.githubusercontent.com/u/12226471?s=460&amp;v=4"></div><div class="author-info__name text-center">Co1ne Yellow</div><div class="author-info__description text-center">柯东的博客</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">7</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">5</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">3</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Co1ne's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span></div><div id="post-info"><div id="post-title">IPC之AIDL</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-09-13</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/Android/">Android</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h3 id="Android-跨进程通信方式及推荐使用场景"><a href="#Android-跨进程通信方式及推荐使用场景" class="headerlink" title="Android 跨进程通信方式及推荐使用场景"></a>Android 跨进程通信方式及推荐使用场景</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">通信方式</th>
+<th style="text-align:left">使用场景</th>
+<th style="text-align:left">优缺点</th>
+<th style="text-align:left">备注</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">AIDL</td>
+<td style="text-align:left">只有允许不同应用的客户端用 IPC 方式访问服务，并且想要在服务中处理多线程时，才有必要使用 AIDL。</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Binder</td>
+<td style="text-align:left">应用内部跨进程通信，支持多线程并发</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Messager</td>
+<td style="text-align:left">无需处理多线程</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="AIDL-（Android-Interface-Definition-Language）介绍"><a href="#AIDL-（Android-Interface-Definition-Language）介绍" class="headerlink" title="AIDL （Android Interface Definition Language）介绍"></a>AIDL （Android Interface Definition Language）介绍</h3><blockquote>
+<p>AIDL（Android 接口定义语言）与您可能使用过的其他 IDL 类似。 您可以利用它定义客户端与服务使用进程间通信 (IPC) 进行相互通信时都认可的编程接口。 在 Android 上，一个进程通常无法访问另一个进程的内存。 尽管如此，进程需要将其对象分解成操作系统能够识别的原语，并将对象编组成跨越边界的对象。 编写执行这一编组操作的代码是一项繁琐的工作，因此 Android 会使用 AIDL 来处理。(摘抄于官网的AIDL简介)</p>
+</blockquote>
+<p>官网中提到，AIDL调用的线程与<code>本地进程</code>和<code>远程进程</code>有关：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">进程</th>
+<th style="text-align:left">AIDL线程</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">本地进程-主线程</td>
+<td style="text-align:left">同一个线程执行</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">本地进程-其他线程</td>
+<td style="text-align:left">在服务的线程中执行</td>
+<td style="text-align:left">本地进程如上表所述，最佳应采用<code>Binder</code>实现跨进程通信</td>
+</tr>
+<tr>
+<td style="text-align:left">远程进程</td>
+<td style="text-align:left">远程线程池中执行</td>
+<td style="text-align:left">需要完全线程安全的实现</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>oneway</code>关键字</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">修改远程调用的行为</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用AIDL的步骤"><a href="#使用AIDL的步骤" class="headerlink" title="使用AIDL的步骤"></a>使用AIDL的步骤</h3><ol>
+<li><p>创建<code>.aidl</code>文件：<br>在<code>src/main</code>下新建<code>aidl</code>文件。Android Studio将创建<code>aidl</code>文件夹，且包名与java包名一致。如下图：</p>
+<p><img src="https://i.loli.net/2018/09/13/5b99beb52fb5c.png" alt="IBookManager.aidl"></p>
+</li>
+<li><p>在<code>IBookManager</code>中定义远程方法：</p>
+<p><img src="https://i.loli.net/2018/09/13/5b99bf3ddac2f.png" alt="getId"></p>
+<p>这时，我们使用Android Studio的gradle任务<code>assembleDebug</code>（或 gradle assembleRelease）编译项目，以便您的代码能够链接到生成的类。这里生成的类为：<code>IBookManager.java</code>：</p>
+<p><img src="https://i.loli.net/2018/09/13/5b99bfe451c2e.png" alt="IBookManager.java"></p>
+<p>关于这个类，比较重要的是<code>Stub</code>内部类。可以看到<code>Stub</code>类是继承自<code>Binder</code>的，用于定义服务的 RPC 接口。其中<code>asInterface</code>方法会将返回<code>IBookManager.java</code>的实例,以用来调用远程方法（可以理解为上面定义的<code>getId</code>方法）。</p>
+</li>
+<li><p>接下来我们定义一个远程的<code>Service</code>：</p>
+<p><img src="https://i.loli.net/2018/09/13/5b99c1dd07ea5.png" alt="MyRemoteService"></p>
+<p>首先，这个<code>Service</code>我们在<code>AndroidManifest.xml</code>中定义<code>android:process=&quot;:remote&quot;</code>。以声明为远程的service。<br>然后在<code>onBind</code>方法中需要返回一个<code>IBinder</code>对象。于是我们由<code>IBookManager</code>的内部类<code>Stub</code>新建一个实例。可以理解为这个实例是对于<code>IBookManager</code>接口的实现。</p>
+</li>
+<li><p>最后，我们在<code>Activity</code>中绑定服务。</p>
+<p><img src="https://i.loli.net/2018/09/13/5b99c2fde68c0.png" alt="SecondActivity"></p>
+<p><code>bindService</code>方法中的第二个参数，视为服务连接的回调。我们使用<code>IBookManager.Stub.asInterface</code>方法来返回一个<code>IBookManager</code>接口的实例。然后调用其中的<code>getId</code>方法。</p>
+</li>
+</ol>
+<p>最后来看一下运行结果：</p>
+<p><img src="https://i.loli.net/2018/09/13/5b99c417ec2dc.png" alt="result"></p>
+<p>可以看到，我们在UI进程中获取到了远程进程的进程id。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Co1ne Yellow</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://coine.github.io/2018/09/12/IPC之AIDL/">https://coine.github.io/2018/09/12/IPC之AIDL/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://coine.github.io" target="_blank">Co1ne's Blog</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/跨进程通信/">跨进程通信</a></div><nav id="pagination"><div class="next-post pull-right"><a href="/2018/08/17/Scrapy2/"><span>Scrapy2</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2018 By Co1ne Yellow</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script></body></html>
